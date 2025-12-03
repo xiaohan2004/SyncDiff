@@ -69,6 +69,8 @@ def compare(folder_a, folder_b, name_a, name_b, rules, job_name):
         else:
             print(f"⚠ 仅在 {name_b}: {rel}")
 
+    print(f"==== ✅ 对比完成：{job_name} ({name_a} vs {name_b}) ====\n")
+
 def main():
     # 不同工作区可能的配置文件路径
     possible_cfg_paths = [
@@ -102,7 +104,7 @@ def main():
         # 找出所有 folder_ 前缀的键
         folder_keys = [k for k in config[section] if k.startswith("folder_")]
         if len(folder_keys) != 2:
-            print(f"⚠ Section '{section}' 必须恰好有两个 folder_ 开头的键，当前找到 {len(folder_keys)} 个，跳过该 section")
+            print(f"\n==== ❌ Section '{section}' 必须恰好有两个 folder_ 开头的键，当前找到 {len(folder_keys)} 个，跳过该 section ====")
             continue
 
         name_a, name_b = folder_keys
@@ -110,10 +112,10 @@ def main():
 
         # 检查文件夹是否存在
         if not os.path.exists(folder_a):
-            print(f"⚠ Section '{section}': 文件夹 {folder_a} 不存在，跳过该 section")
+            print(f"\n==== ❌ Section '{section}': 文件夹 {folder_a} 不存在，跳过该 section ====")
             continue
         if not os.path.exists(folder_b):
-            print(f"⚠ Section '{section}': 文件夹 {folder_b} 不存在，跳过该 section")
+            print(f"\n==== ❌ Section '{section}': 文件夹 {folder_b} 不存在，跳过该 section ====")
             continue
 
         # 去掉前缀
